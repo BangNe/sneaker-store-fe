@@ -3,6 +3,7 @@ import classNames from 'classnames/bind'
 import style from './DefaultLayout.module.scss'
 import Header from './Header'
 import Sidebar from './Sidebar'
+import Footer from './Footer'
 
 const cx = classNames.bind(style)
 
@@ -12,6 +13,7 @@ function DefaultLayout({children}) {
             <Header/>
             <Sidebar/>
             <div>{children}</div>
+            <Footer/>
         </div>
     )
 }

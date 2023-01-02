@@ -13,7 +13,7 @@ function Search() {
             <Tippy
                 placement = {'bottom-start'}
                 interactive = {true}
-                visible = {true}
+                visible = {false}
                 render={attrs => (
                     <div className="box" tabIndex="-1" {...attrs}>
                        <div className={cx('menu-search')}>
