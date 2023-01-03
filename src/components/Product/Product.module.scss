@@ -1,0 +1,71 @@
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    width: 95%;
+    border: 1px dashed rgba($color: #000000, $alpha: 0.3);
+    border-radius: 4px;
+
+    &:hover {
+        h5 {
+            color: var(--primary);
+        }
+    }
+}
+
+.content {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+
+    h5 {
+        font-size: 1.4rem;
+        color: var(--text);
+        width: 100%;
+        padding: 0 10px;
+        margin: 0 0 20px 0;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+}
+
+.img {
+    width: 100%;
+
+    img {
+        width: 100%;
+    }
+}
+
+.price {
+    position: relative;
+    width: 100%;
+    padding: 10px;
+    border-top: 1px dashed rgba($color: #000000, $alpha: 0.3);
+
+    &::before {
+        position: absolute;
+        top: 0;
+        left: 0;
+        content: '';
+        width: 25px;
+        height: 25px;
+        background: var(--white);
+        border-right: 1px dashed rgba($color: #000000, $alpha: 0.3);
+        transform: translate(-50%,-50%);
+        border-radius: 50%;
+    }
+
+    &::after {
+        position: absolute;
+        top: 0;
+        right: 0;
+        content: '';
+        width: 25px;
+        height: 25px;
+        background: var(--white);
+        border-left: 1px dashed rgba($color: #000000, $alpha: 0.3);
+        transform: translate(50%,-50%);
+        border-radius: 50%;
+    }
+}
