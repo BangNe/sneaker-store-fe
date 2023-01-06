@@ -1,23 +1,24 @@
+import { useEffect, useState } from 'react'
 import {Link} from 'react-router-dom'
 import Slider from 'react-slick'
 import 'slick-carousel/slick/slick.css'
 import 'slick-carousel/slick/slick-theme.css'
 
+
+import * as brandSevices from '../../../services/brandSevices'
 import '../custom.scss'
-
-const itemLogo = [
-    {img : 'https://theme.hstatic.net/200000265619/1000946504/14/img_bran_category1.png'},
-    {img : 'https://theme.hstatic.net/200000265619/1000946504/14/img_bran_category2.png'},
-    {img : 'https://theme.hstatic.net/200000265619/1000946504/14/img_bran_category3.png'},
-    {img : 'https://theme.hstatic.net/200000265619/1000946504/14/img_bran_category4.png'},
-    {img : 'https://theme.hstatic.net/200000265619/1000946504/14/img_bran_category5.png'},
-    {img : 'https://theme.hstatic.net/200000265619/1000946504/14/img_bran_category6.png'},
-    {img : 'https://theme.hstatic.net/200000265619/1000946504/14/img_bran_category7.png'},
-    {img : 'https://theme.hstatic.net/200000265619/1000946504/14/img_bran_category8.png'},
-    {img : 'https://theme.hstatic.net/200000265619/1000946504/14/img_bran_category9.png'},
-]
-
 function LogoTypes() {
+
+    const [brandResult,setBrandResult] = useState([])
+
+    useEffect(() => {
+        const fetchApi = async () => {
+            const result = await brandSevices.getBrand()
+            setBrandResult(result)
+        }
+        fetchApi()
+    },[])
+
     return (
         <Slider
             infinite={true}
@@ -28,12 +29,15 @@ function LogoTypes() {
             autoplaySpeed ={1500}
             arrows = {false}
         >
-            {itemLogo.map((item,id) => {
-                return (
-                    <Link key={id}>
-                        <img src={item.img} alt=''/>
-                    </Link>
-                )
+            {brandResult.map((item,id) => {
+                if(item.img) {
+                    return (
+                        <Link key={id} to = {`/products/${item.name}`}>
+                            {<img src={item.img} alt=''/>}
+                        </Link>
+                    )
+                }
+                return false
             })}
         </Slider>
     )

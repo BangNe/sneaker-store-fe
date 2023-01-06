@@ -55,7 +55,7 @@ function Product({name,price,imgs}) {
                 <h5>{name}</h5>
             </div>
             <div className={cx('price')}>
-                <Button primary medium clipPathRight>{price}</Button>
+                <Button primary medium clipPathRight>{price.toLocaleString('it-IT', {style : 'currency', currency : 'VND'})}</Button>
             </div>
         </Link>
     )
