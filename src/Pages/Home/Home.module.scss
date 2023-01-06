@@ -12,7 +12,7 @@
 
 .logoTypes {
     width: var(--width-content);
-    padding: 20px 0;
+    padding: 25px 0;
 }
 
 .thumbnail {
@@ -20,7 +20,7 @@
     grid-template-columns: repeat(6,1fr);
     grid-auto-rows: minmax(200px, auto);
     gap: 20px;
-    margin-bottom: 60px;
+    margin-bottom: 40px;
 }
 
 .thumbnail-item {
@@ -108,7 +108,7 @@
     width: 100%;
     background: var(--white);
     padding: 15px 0 35px 0;
-    margin-bottom: 60px;
+    margin-bottom: 40px;
 }
 
 .new-arrival-title {
@@ -122,6 +122,75 @@
     }
 }
 
-.new-arrival-list {
+.product-list {
     width: 100%;
+}
+
+.product-season {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    padding-bottom: 20px;
+    margin-bottom: 40px;
+    background-color: var(--white);
+}
+
+.product-season:nth-child(even) {
+    .product-season-info {
+        flex-direction: row-reverse;
+    }
+}
+
+.product-season-info {
+    display: flex;
+    margin-bottom: 20px;
+}
+
+.product-season-img {
+    margin-right: 15px;
+    img {
+        width: 775px;
+        border-radius: 4px;
+    }
+}
+
+.product-season-content {
+    display: flex;
+    flex-direction: column;
+    padding: 40px 40px 0 40px;
+
+    h5 {
+        font-size: 3rem;
+        font-weight: 700;
+        padding: 7px 0;
+        margin: 0 0 20px 0;
+        text-transform: uppercase;
+
+        &:hover {
+            color: var(--primary);
+        }
+    }
+    
+    p {
+        font-size: 1.4rem;
+        line-height: 1.3;
+        margin: 15px 0;
+    }
+}
+
+.product-season-link {
+    display: flex;
+    align-items: center;
+    font-size: 3rem;
+    color: var(--text);
+
+    span {
+        display: inline-block;
+        font-size: 2rem;
+        margin-right: 10px;
+    }
+
+    &:hover {
+        color: var(--primary);
+    }
 }

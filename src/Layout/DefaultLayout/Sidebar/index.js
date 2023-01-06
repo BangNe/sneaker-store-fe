@@ -1,52 +1,27 @@
 import classNames from 'classnames/bind'
 import {NavLink,Link} from 'react-router-dom'
 import Tippy from '@tippyjs/react/headless'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 import style from './Sidebar.module.scss'
 import Wrapper from '../../../components/Menu/Wrapper'
 import config from '../../../cofig'
+import * as brandSevices from '../../../services/brandSevices'
 
 const cx = classNames.bind(style)
 
-const fakeTypes = [
-    {
-        name:'converseasdasdsad1',
-        childrens: [
-            {name:'converse1'},
-            {name:'converse'},
-            {name:'converse'},
-            {name:'converse'},
-        ]
-    },
-    {
-        name:'converse2',
-    },
-    {
-        name:'converse3',
-    },
-    {
-        name:'converse4',
-        childrens: [
-            {name:'converse3'},
-            {name:'converse'},
-            {name:'converse'},
-            {name:'converse'},
-        ]
-    },
-    {
-        name:'converse5',
-        childrens: [
-            {name:'converse4'},
-            {name:'converse'},
-            {name:'converse'},
-            {name:'converse'},
-        ]
-    },
-]
-
 function Sidebar() {
     const [showMenuTypes,setShowMenuTypes]= useState(false)
+    const [brandResult,setBrandResult]= useState([])
+
+    useEffect(()=> {
+        const fetchApi = async () => {
+            const result = await brandSevices.getBrand()
+
+            setBrandResult(result)
+        }
+        fetchApi()
+    },[])
 
     const handleShowMenuTypes = () => {
         setShowMenuTypes(false)
@@ -71,23 +46,26 @@ function Sidebar() {
                             <div className={cx('wrapper-menu-types')}>
                                     <Wrapper>
                                         <div className={cx('menu-types')}>
-                                            {fakeTypes.map((item,id)=> {
-                                                let isChildren = item.childrens
+                                            {brandResult.map((brand,id)=> {
+                                                const isStyle = brand.style.length > 0
                                                 return (
                                                     <div key={id} className={cx('item-menu')}>
-                                                        <Link className={cx('item-menu-link')}>
+                                                        <Link className={cx('item-menu-link')} to={`/products/${encodeURIComponent(brand.name)}`}>
                                                             <span>
-                                                                {item.name}
+                                                                {brand.name}
                                                             </span>
-                                                            {isChildren&&<i className='bx bx-chevron-right bx-fade-right' ></i>}
+                                                            {isStyle&&<i className='bx bx-chevron-right bx-fade-right' ></i>}
                                                         </Link>
-                                                        {isChildren&&<div className={cx('wrapper-menu-child')}>
+                                                        {isStyle&&<div className={cx('wrapper-menu-child')}>
                                                             <Wrapper >
-                                                                {item.childrens.map((itemChild,idChild) => {
+                                                                {brand.style.map((itemChild,idChild) => {
                                                                     return(
-                                                                        <Link key={idChild} className={cx('item-menu-link')} to='/'>
+                                                                        <Link 
+                                                                            key={idChild} className={cx('item-menu-link')} 
+                                                                            to={`/products/${encodeURIComponent(itemChild)}`}
+                                                                        >
                                                                             <span>
-                                                                                {itemChild.name}
+                                                                                {itemChild}
                                                                             </span>
                                                                         </Link>
                                                                     )

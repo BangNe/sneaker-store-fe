@@ -9,6 +9,11 @@
         h5 {
             color: var(--primary);
         }
+
+        .wrapper-img-select {
+            transform: translateY(0);
+            opacity: 1;
+        }
     }
 }
 
@@ -21,8 +26,8 @@
         font-size: 1.4rem;
         color: var(--text);
         width: 100%;
-        padding: 0 10px;
-        margin: 0 0 20px 0;
+        padding: 20px 10px;
+        margin: 0;
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
@@ -30,11 +35,25 @@
 }
 
 .img {
+    position: relative;
     width: 100%;
 
     img {
         width: 100%;
     }
+}
+
+.wrapper-img-select {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 50px;
+    background-color: rgba(233, 233, 233, 0.82);
+    padding: 8px 0;
+    transform: translateY(100%);
+    opacity: 0;
+    transition: all 0.25s linear;
 }
 
 .price {
@@ -67,5 +86,30 @@
         border-left: 1px dashed rgba($color: #000000, $alpha: 0.3);
         transform: translate(50%,-50%);
         border-radius: 50%;
+    }
+}
+
+.img-select {
+    width: 33px;
+    height: 33px;
+    border-radius: 8px;
+
+    img {
+        width: 33px;
+        height: 33px;
+        object-fit: cover;
+        border-radius: 8px;
+    }
+}
+
+.img-select:hover {
+    img {
+        border: 1px solid var(--primary);
+    }
+}
+
+.img-select.active {
+    img {
+        border: 1px solid var(--primary);
     }
 }

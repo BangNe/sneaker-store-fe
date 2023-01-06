@@ -1,15 +1,40 @@
-import classNames from 'classnames/bind'
-import Banner from './Banner'
-import LogoTypes from './LogoTypes'
+import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
+import classNames from 'classnames/bind'
 
+import LogoTypes from './LogoTypes'
+import Banner from './Banner'
 import style from './Home.module.scss'
 import config from '../../cofig'
 import ListProducts from './ListProducts'
+import * as seasonSevices from '../../services/seasonSevices'
+import * as productSevices from '../../services/productSevices'
 
 const cx = classNames.bind(style)
 
 function Home() {
+    const [seasonResult,setSeasonResult] = useState([])
+    const [fakeProducts,setFakeProducts] = useState([])
+
+    useEffect(() => {
+        const fetchApi = async () => {
+            const result = await seasonSevices.getSeason()
+
+            setSeasonResult(result)
+        }
+        fetchApi()
+    },[])
+
+    useEffect(() => {
+        const fetchApi = async () => {
+            const result = await productSevices.getTest()
+
+            setFakeProducts(result)
+        }
+        fetchApi()
+    },[])
+
+
     return (
         <div className={cx('wrapper')}>
             <div className={cx('banner')}>
@@ -48,10 +73,36 @@ function Home() {
 
             <div className={cx('new-arrival')}>
                 <Link className={cx('new-arrival-title')} to={config.routes.newArrival}>SẢN PHẨM MỚI</Link>
-                <div className={cx('new-arrival-list')}>
-                    <ListProducts/>
+                <div className={cx('product-list')}>
+                    <ListProducts data={fakeProducts}/>
                 </div>
             </div>
+
+            {seasonResult.map((item,id) => {
+                return (
+                    <div key={id} className={cx('product-season')}>
+                        <div className={cx('product-season-info')}>
+                            <div className={cx('product-season-img')}>
+                                <img src={item.img} alt=''/>
+                            </div>
+                            <div className={cx('product-season-content')}>
+                                <h5>{item.name}</h5>
+                                <p>{item.content}</p>
+
+                                <Link className={cx('product-season-link')} to={`/products/${encodeURIComponent(item.name)}`}>
+                                    <span>XEM TẤT CẢ</span>
+                                    <i className='bx bx-chevron-right bx-fade-right' ></i>
+                                </Link>
+                            </div>
+                        </div>
+                            
+                        <div className={cx('product-list')}>
+                            <ListProducts data={fakeProducts}/>
+                        </div>
+                    </div>
+                )
+            })}
+            
         </div>
     )
 }
