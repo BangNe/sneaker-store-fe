@@ -23,12 +23,12 @@ function Header() {
                     <Button primary large clipPathRight to ={config.routes.cart}>
                         <i className='bx bx-cart-alt bx-tada' ></i>
                     </Button>
-                    {/* <Button other large clipPathLeft to ={config.routes.login}>
+                    <Button other large clipPathLeft to ={config.routes.login}>
                         <span className={cx('btn-login')}>Login</span>
-                    </Button> */}
-                    <Button other large clipPathLeft to ={config.routes.user}>
-                        <i className='bx bx-user' ></i>
                     </Button>
+                    {/* <Button other large clipPathLeft to ={config.routes.user}>
+                        <i className='bx bx-user' ></i>
+                    </Button> */}
                 </div>
             </div>
         </header>

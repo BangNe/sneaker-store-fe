@@ -16,12 +16,15 @@ function Button({
     //type
     primary,
     other,
+    white,
+    
     clipPathLeft,
     clipPathRight,
 
     //size
     medium,
     large,
+    oversize,
 
     ...prop
 }) {
@@ -43,11 +46,13 @@ function Button({
     const clx = cx('button',{
         primary,
         other,
+        white,
         clipPathLeft,
         clipPathRight,
 
         medium,
-        large
+        large,
+        oversize
     })
 
     return (
