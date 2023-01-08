@@ -27,7 +27,7 @@
     transition: all 0.25s linear;
 }
 
-input:focus{
+.input:focus{
     border:2px solid var(--primary);
 
     +.label {
@@ -39,7 +39,7 @@ input:focus{
     }
 }
 
-input:not(:placeholder-shown) {
+.input:not(:placeholder-shown) {
     border:2px solid var(--primary);
 
     +.label {

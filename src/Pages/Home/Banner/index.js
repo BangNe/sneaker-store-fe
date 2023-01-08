@@ -1,22 +1,22 @@
-import { useEffect, useState } from 'react'
+import { useEffect, memo } from 'react'
 import {Link} from 'react-router-dom'
 import Slider from 'react-slick'
 import 'slick-carousel/slick/slick.css'
 import 'slick-carousel/slick/slick-theme.css'
+import {useDispatch, useSelector} from 'react-redux'
 
-import * as bannerSevices from '../../../services/bannerSevices'
+import {fetchBanner} from '../../../store/slice/bannerSlice'
+import {bannerSelector} from '../../../store/selectors'
 import '../custom.scss'
 
 function Banner() {
-    const [bannerResult,setBannerResult] = useState([])
+    const dispatch = useDispatch()
 
     useEffect(() => {
-        const fetchApi = async () => {
-            const result = await bannerSevices.getBanner()
-            setBannerResult(result)
-        }
-        fetchApi()
-    },[])
+        dispatch(fetchBanner())
+    },[dispatch])
+
+    const bannerResult = useSelector(bannerSelector)
 
     return (
         <Slider
@@ -25,15 +25,15 @@ function Banner() {
                 slidesToScroll = {1}
                 autoplay = {true}
             >
-                {bannerResult.map((banner,id) => {
+                {bannerResult.initState.map((banner,id) => {
                     return (
                         <Link key={id} to = {`/products/${banner.brand}`}>
                             <img src={banner.img} alt=''/>
                         </Link>
                     )
                 })}
-            </Slider>
+        </Slider>
     )
 }
 
-export default Banner
+export default memo(Banner)

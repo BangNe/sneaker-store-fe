@@ -2,30 +2,30 @@ import classNames from 'classnames/bind'
 import {NavLink,Link} from 'react-router-dom'
 import Tippy from '@tippyjs/react/headless'
 import { useEffect, useState } from 'react'
+import { useDispatch , useSelector } from 'react-redux'
 
+import {fetchBrand} from '../../../store/slice/brandSlice'
+import {brandSelector} from '../../../store/selectors'
 import style from './Sidebar.module.scss'
 import Wrapper from '../../../components/Menu/Wrapper'
 import config from '../../../cofig'
-import * as brandSevices from '../../../services/brandSevices'
 
 const cx = classNames.bind(style)
 
 function Sidebar() {
+    const dispatch = useDispatch()
+
     const [showMenuTypes,setShowMenuTypes]= useState(false)
-    const [brandResult,setBrandResult]= useState([])
-
-    useEffect(()=> {
-        const fetchApi = async () => {
-            const result = await brandSevices.getBrand()
-
-            setBrandResult(result)
-        }
-        fetchApi()
-    },[])
 
     const handleShowMenuTypes = () => {
         setShowMenuTypes(false)
     }
+
+    useEffect(()=> {
+        dispatch(fetchBrand())
+    },[dispatch])
+
+    const brandResult = useSelector(brandSelector)
 
     return ( 
         <aside className={cx('wrapper')}>
@@ -46,7 +46,7 @@ function Sidebar() {
                             <div className={cx('wrapper-menu-types')}>
                                     <Wrapper>
                                         <div className={cx('menu-types')}>
-                                            {brandResult.map((brand,id)=> {
+                                            {brandResult.initState.map((brand,id)=> {
                                                 const isStyle = brand.style.length > 0
                                                 return (
                                                     <div key={id} className={cx('item-menu')}>

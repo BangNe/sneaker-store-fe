@@ -4,10 +4,6 @@ import 'slick-carousel/slick/slick-theme.css'
 import Product from '../../../components/Product'
 import '../custom.scss'
 
-// const products = [
-
-// ]
-
 function ListProducts({data}) {
 
     return (
