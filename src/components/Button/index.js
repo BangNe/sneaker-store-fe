@@ -22,9 +22,15 @@ function Button({
     clipPathRight,
 
     //size
+    small,
     medium,
     large,
     oversize,
+
+    hiden,
+    autoMargin,
+    active,
+    disabled,
 
     ...prop
 }) {
@@ -43,6 +49,14 @@ function Button({
         prps.href = href
     }
 
+    if (disabled) {
+        Object.keys(prps).forEach((key) => {
+            if (key.startsWith('on') && typeof prps[key] === 'function') {
+                delete prps[key];
+            }
+        });
+    }
+
     const clx = cx('button',{
         primary,
         other,
@@ -50,9 +64,15 @@ function Button({
         clipPathLeft,
         clipPathRight,
 
+        small,
         medium,
         large,
-        oversize
+        oversize,
+
+        hiden,
+        autoMargin,
+        active,
+        disabled,
     })
 
     return (

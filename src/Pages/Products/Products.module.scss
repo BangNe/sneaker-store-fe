@@ -1,0 +1,235 @@
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    background-color: var(--white);
+}
+
+.map {
+    display: flex;
+    align-items: center;
+    width: var(--width-content);
+    padding: 25px 15px;
+
+    a {
+        font-size: 1.6rem;
+        font-weight: 500;
+        color: var(--text);
+        margin-right: 10px;
+    }
+
+    a:last-child {
+        color: var(--primary);
+        margin-left: 10px;
+    }
+
+}
+
+.inner {
+    display: flex;
+    width: var(--width-content);
+}
+
+.sidebar {
+    display: flex;
+    flex-direction: column;
+    width: 300px;
+    padding: 0 15px;
+}
+
+.box {
+    display: flex;
+    flex-direction: column;
+
+    + .box {
+        margin-top: 25px;
+    }
+}
+
+.title {
+    font-size: 1.6rem;
+    line-height: 1;
+}
+
+.inner-box {
+    display: flex;
+    flex-wrap: wrap;
+    font-size: 1.6rem;
+    width: 100%;
+    max-height: 350px;
+    padding: 15px;
+    border: 1px dashed rgba($color: #000000, $alpha: 0.3);
+    border-radius: 4px;
+    cursor: pointer;
+    overflow: auto;
+}
+
+.inner-box::-webkit-scrollbar {
+    border-radius: 0;
+    width: 8px;
+}
+
+.inner-box::-webkit-scrollbar-thumb {
+    border-radius: 4px;
+    background-color: rgba(22, 24, 35, .06);
+}
+
+.inner-box::-webkit-scrollbar-track {
+    border-radius: 0;
+    background-color: rgba(0, 0, 0, 0);
+}
+
+.brand-name {
+    font-size: 1.6rem;
+    color: var(--text);
+    width: 100%;
+    padding: 8px 0;
+
+    &:hover {
+        color: var(--primary);
+    }
+
+    &:first-child {
+        padding-top: 0;
+    }
+    
+    &:last-child {
+        padding-bottom: 0;
+    }
+}
+
+.price-list {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    padding: 12px 0;
+    margin-bottom: 20px;
+
+    span {
+        display: inline-block;
+        font-size: 1.6rem;
+        padding: 12px 16px;
+        border: 1px dashed rgba($color: #000000, $alpha: 0.3);
+        border-radius: 4px;
+    }
+}
+
+.input-range {
+    width: 100%;
+}
+
+.slider-range {
+    position: relative;
+    width: 100%;
+    height: 5px;
+    background-color: rgba($color: #000000, $alpha: 0.1);
+    border-radius: 4px;
+}
+
+.progress-range {
+    position: absolute;
+    height: 5px;
+    top: 0;
+    left: 0%;
+    right: 0%;
+    background-image: linear-gradient(to right, var(--primary) , var(--black));
+    border-radius: 4px;
+
+
+    
+}
+
+.input-range {
+    position: relative;
+
+    input {
+        position: absolute;
+        top: -5px;
+        width: 100%;
+        height: 5px;
+        pointer-events: none;
+        -webkit-appearance: none;
+        background-color: transparent;
+    }
+
+    input[type='range']::-webkit-slider-thumb {
+        width: 34px;
+        height: 17px;
+        border-radius: 4px;
+        pointer-events: auto;
+        cursor: pointer;
+        -webkit-appearance: none;
+    }
+
+    input[type='range']:nth-child(1)::-webkit-slider-thumb {
+        background-color: var(--primary);
+    }
+    input[type='range']:nth-child(2)::-webkit-slider-thumb {
+        background-color: var(--black);
+    }
+}
+
+.input-type {
+    display: flex;
+    align-items: center;
+    color: var(--text);
+    width: 100%;
+    padding: 8px 0;
+    cursor: pointer;
+
+    span {
+        display: inline-block;
+        margin-left: 10px;
+    }
+
+    &:hover {
+        color: var(--primary);
+    }
+
+    input[type="checkbox"] {
+        accent-color: var(--primary);
+        cursor: pointer;
+    }
+
+    &:first-child {
+        padding-top: 0;
+    }
+
+    &:last-child {
+        padding-bottom: 0;
+    }
+
+    input[type="checkbox"]:checked + span {
+        color: var(--primary);
+        font-weight: 600;
+    }
+}
+
+.input-size {
+    display: flex;
+    align-items: center;
+    color: var(--text);
+    width: 25%;
+    padding: 8px 0;
+    cursor: pointer;
+
+    span {
+        display: inline-block;
+        margin-left: 5px;
+    }
+
+    &:hover {
+        color: var(--primary);
+    }
+
+    input[type="checkbox"] {
+        accent-color: var(--primary);
+        cursor: pointer;
+    }
+
+    input[type="checkbox"]:checked + span {
+        color: var(--primary);
+        font-weight: 600;
+    }
+}
