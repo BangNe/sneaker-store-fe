@@ -474,7 +474,7 @@ function MenuProducts() {
                         </div>
                     )
                 })}
-                <Pagination lenghtPage={8} />
+                <Pagination lenghtPage={5} />
             </div>
         </div>
     )
