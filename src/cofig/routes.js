@@ -9,7 +9,8 @@ const routes = {
     inStoreOnly: '/products/inStoreOnly',
     specialPrice: '/products/specialPrice',
     storeList: '/products/storeList',
-    products : '/products/:name'
+    products : '/products/:name',
+    productDetails : '/productDetails/:name'
 };
 
 export default routes;

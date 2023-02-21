@@ -1,51 +1,56 @@
 import classNames from 'classnames/bind'
-import { useRef, useState } from 'react'
+import { useRef, useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
+import {useSelector, useDispatch } from 'react-redux'
 
-import { useDebounce } from '../../hooks'
+import {getType,getSize, getRangePrice} from '../../store/slice/productSlice'
+import {brandSelector, typeSelector,sizeSelector,rangePriceSelector } from '../../store/selectors'
+// import { useDebounce } from '../../hooks'
 import style from './Products.module.scss'
 import config  from '../../cofig'
 import MenuProducts from './MenuProducts'
 
 const cx = classNames.bind(style)
 
-const types = [
-    'giày',
-    'dép',
-    'balo',
-    'áo',
-    'quan'
-]
-
-const sizes = [
-    30,31,32,33,34,34.5,35,36,37,38,39,40,43
-]
-
 function Products() {
-    const maxPriceValue = 4000000
-    const [minInputValue, setMinInputValue] = useState(0)
-    const [maxInputValue, setMaxInputValue] = useState(maxPriceValue)
+    const dispatch = useDispatch()
+    const sliderInput = useRef()
+    const brandResult = useSelector(brandSelector)
+    const typeResult = useSelector(typeSelector)
+    const sizeResult = useSelector(sizeSelector)
+    const rangePriceResult = useSelector(rangePriceSelector)
+
+    const [minInputValue, setMinInputValue] = useState(rangePriceResult.minPrice)
+    const [maxInputValue, setMaxInputValue] = useState(rangePriceResult.maxPrice)
     const [valueTypes, setvalueTypes] = useState([])
     const [valueTSizes, setvalueSizes] = useState([])
+    
+    // const valueMinDebounce = useDebounce(minInputValue,800)
+    // const valueMaxDebounce = useDebounce(maxInputValue,800)
 
-    const sliderInput = useRef()
-    const valueMinDebounce = useDebounce(minInputValue,800)
-    const valueMaxDebounce = useDebounce(maxInputValue,800)
+    useEffect(() => {
+        dispatch(getType())
+    },[dispatch])
+
+    useEffect(() => {
+        dispatch(getSize())
+    },[dispatch])
+
+    useEffect(() => {
+        dispatch(getRangePrice())
+    },[dispatch])
 
     const handleMinInput = (e) => {
         let minValue = e.target.value
 
         setMinInputValue(minValue)
-        sliderInput.current.style.left = (minValue/maxPriceValue)* 100 + "%"
+        sliderInput.current.style.left = (minValue/rangePriceResult.maxPrice)* 100 + "%"
     }
-
-    console.log(valueMinDebounce)
-    console.log(valueMaxDebounce)
 
     const handleMaxInput = (e) => {
         let maxValue = e.target.value
         setMaxInputValue(maxValue)
-        sliderInput.current.style.right = 100-(maxValue/maxPriceValue)* 100 + "%"
+        sliderInput.current.style.right = 100-(maxValue/rangePriceResult.maxPrice)* 100 + "%"
     }
 
     const handleCheckType = (type) => {
@@ -82,21 +87,19 @@ function Products() {
                     <div className={cx('brand', 'box')}>
                         <h3 className={cx('title')}>Danh mục sản phẩm</h3>
                         <div className={cx('inner-box')}>
-                            <Link className={cx('brand-name')}>PALLADIUM</Link>
-                            <Link className={cx('brand-name')}>VANS</Link>
-                            <Link className={cx('brand-name')}>PALLADIUM</Link>
-                            <Link className={cx('brand-name')}>PALLADIUM</Link>
-                            <Link className={cx('brand-name')}>PALLADIUM</Link>
-                            <Link className={cx('brand-name')}>PALLADIUM</Link>
-                            <Link className={cx('brand-name')}>PALLADIUM</Link>
+                            {brandResult.initState && brandResult.initState.map((item,id) => {
+                                return (
+                                    <Link key={id} className={cx('brand-name')}>{item.name}</Link>
+                                )
+                            })}
                         </div>
                     </div>
                     <div className={cx('price-range', 'box')}>
                         <h3 className={cx('title')}>Mức giá</h3>
                         <div className={cx('inner-box')}>
                             <div className={cx('price-list')}>
-                                <span>{minInputValue.toLocaleString('vi', {style : 'currency', currency : 'VND'})}</span>
-                                <span>{maxInputValue.toLocaleString('vi', {style : 'currency', currency : 'VND'})}</span>
+                                {<span>{minInputValue}</span>}
+                                <span>{maxInputValue}</span>
                             </div>
                             <div className={cx('slider-range')}>
                                 <div className={cx('progress-range')} ref={sliderInput}></div>
@@ -104,16 +107,16 @@ function Products() {
                             <div className={cx('input-range')}>
                                 <input 
                                     className={cx('input-range-min')} 
-                                    min='0' 
-                                    max={maxPriceValue} 
+                                    min={rangePriceResult.minPrice } 
+                                    max={rangePriceResult.maxPrice } 
                                     value={minInputValue} 
                                     type='range'
                                     onChange={handleMinInput}
                                 />
                                 <input 
                                     className={cx('input-range-max')} 
-                                    min='0' 
-                                    max={maxPriceValue} 
+                                    min={rangePriceResult.minPrice } 
+                                    max={rangePriceResult.maxPrice} 
                                     value= {maxInputValue} 
                                     type='range'
                                     onChange={handleMaxInput}
@@ -124,7 +127,7 @@ function Products() {
                     <div className={cx('type', 'box')}>
                         <h3 className={cx('title')}>LOẠI SẢN PHẨM</h3>
                         <div className={cx('inner-box')}>
-                            {types.map((item,id) => {
+                            {typeResult &&typeResult.map((item,id) => {
                                 return (
                                     <div 
                                         key={id} 
@@ -144,7 +147,7 @@ function Products() {
                     <div className={cx('size', 'box')}>
                         <h3 className={cx('title')}>THEO KÍCH CỠ</h3>
                         <div className={cx('inner-box')}>
-                            {sizes.map((item,id) => {
+                            {sizeResult && sizeResult.map((item,id) => {
                                 return (
                                     <div key={id} className={cx('input-size')}>
                                         <input 
@@ -152,7 +155,7 @@ function Products() {
                                             checked = {valueTSizes.includes(item)}
                                             onChange = {() => handleCheckSize(item)}
                                         />
-                                        <span>{item}</span>
+                                        <span>{item.num}</span>
                                     </div>
                                 )
                             })}
