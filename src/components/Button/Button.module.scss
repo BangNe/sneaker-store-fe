@@ -80,6 +80,5 @@
 }
 
 .active {
-    color: var(--white);
-    background-image: linear-gradient(to right, var(--primary) , var(--black));   
+    border: 1px solid var(--primary);  
 }

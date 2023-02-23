@@ -1,0 +1,232 @@
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    background-color: var(--white);
+}
+
+.map {
+    display: flex;
+    align-items: center;
+    width: var(--width-content);
+    padding: 25px 15px;
+
+    .map--link {
+        font-size: 1.6rem;
+        font-weight: 500;
+        color: var(--text);
+    }
+
+    .map--link:hover {
+        color: var(--primary);
+    }
+
+    .map--current {
+        color: var(--primary);
+    }
+
+    i {
+        margin: 0 4px;
+    }
+
+}
+
+.inner {
+    display: flex;
+    flex-direction: column;
+    width: var(--width-content);
+}
+
+.product {
+    display: flex;
+}
+
+.product--img {
+    width: 30%;
+
+    img {
+        width: 100%;
+    }
+}
+
+.product--info {
+    width: 40%;
+    display: flex;
+    flex-direction: column  ;
+}
+
+.product--list--img {
+    width: 100%;
+}
+
+.img-select {
+    width: 80px;
+    border-radius: 8px;
+
+    img {
+        width: 80px;
+        border-radius: 8px;
+    }
+}
+
+.img-select:hover {
+    img {
+        border: 1px solid var(--primary);
+    }
+}
+
+.img-select.active {
+    img {
+        border: 1px solid var(--primary);
+    }
+}
+
+.product-line {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    margin: 4px 0;
+
+    div {
+        width: 100%;
+        border-bottom: 1px dashed var(--primary);
+        // margin-left: 26px;
+    }
+
+    i {
+        font-size: 2.4rem;
+        color: var(--primary);
+    }
+}
+
+.product--info--under {
+    display: flex;
+    flex-direction: column;
+}
+
+.product--info--name {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--text);
+    line-height: 1.3;
+    margin: 10px 0;
+}
+
+.product--info--brand-quantity {
+    display: flex;
+    
+    h5 {
+        font-size: 1.4rem;
+        font-weight: 400;
+        color: var(--text);
+        margin: 0;
+
+        span {
+            font-size: 1.6rem;
+            font-weight: 500;
+            color: var(--primary);
+        }
+    }
+
+    div {
+        height: 100%;
+        margin: 0 8px;
+        border-left: 2px solid var(--black);
+    }
+}
+
+.product--info--price {
+    display: block;
+    font-size: 3rem;
+    font-weight: 700;
+    line-height: 1;
+    color: var(--primary);
+    margin: 20px 0;
+}
+
+.product--info--size {
+    display: flex;
+    align-items: center;
+
+    h5 {
+        font-size: 1.4rem;
+        font-weight: 700;
+        color: var(--text);
+        margin: 0 40px 0 0;
+    }
+}
+
+.product--info--quantity {
+    display: flex;
+    align-items: center;
+    margin: 20px 0;
+
+    h5 {
+        font-size: 1.4rem;
+        font-weight: 700;
+        color: var(--text);
+        margin: 0 40px 0 0;
+    }
+
+    .product--info--quantity-input {
+        display: flex;
+
+        span {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 36px;
+            height: 36px;
+            border: 1px solid rgba($color: #000000, $alpha: .2);
+            cursor: pointer;
+    
+            i {
+                font-size: 2rem;
+            }
+        }
+
+        input {
+            width: 46px;
+            height: 36px;
+            text-align: center;
+            color: var(--primary);
+            border-top: 1px solid rgba($color: #000000, $alpha: .2);
+            border-bottom: 1px solid rgba($color: #000000, $alpha: .2);
+        }
+    }
+}
+
+.product-table {
+    width: 30%;
+    margin-left: 20px;
+
+    h5 {
+        width: 100%;
+        font-size: 1.4rem;
+        line-height: 1.3;
+        font-weight: 700;
+        text-align: center;
+        padding: 15px;
+        margin: 0;
+        border: 1px solid va;
+    }
+
+    table, td, tr {
+        border: 1px solid rgba($color: #000000, $alpha: .2);
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    tr, td {
+        font-size: 1.4rem;
+        font-weight: 700;
+        line-height: 1.3;
+        text-align: center;
+        padding: 15px;
+        color: var(--text);
+    }
+}
