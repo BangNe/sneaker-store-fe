@@ -3,9 +3,8 @@ import { useRef, useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import {useSelector, useDispatch } from 'react-redux'
 
-import {getType,getSize, getRangePrice} from '../../store/slice/productSlice'
-import {brandSelector, typeSelector,sizeSelector,rangePriceSelector } from '../../store/selectors'
-// import { useDebounce } from '../../hooks'
+import {getMenuProduct } from '../../store/slice/productSlice'
+import {typeSelector,sizeSelector,rangePriceSelector,menuProductSelector, urlProductSelector } from '../../store/selectors'
 import style from './Products.module.scss'
 import config  from '../../cofig'
 import MenuProducts from './MenuProducts'
@@ -13,32 +12,20 @@ import MenuProducts from './MenuProducts'
 const cx = classNames.bind(style)
 
 function Products() {
+
     const dispatch = useDispatch()
+
     const sliderInput = useRef()
-    const brandResult = useSelector(brandSelector)
+    const urlProduct = useSelector(urlProductSelector)
     const typeResult = useSelector(typeSelector)
     const sizeResult = useSelector(sizeSelector)
     const rangePriceResult = useSelector(rangePriceSelector)
+    const menuProductResult = useSelector(menuProductSelector)
 
     const [minInputValue, setMinInputValue] = useState(rangePriceResult.minPrice)
     const [maxInputValue, setMaxInputValue] = useState(rangePriceResult.maxPrice)
     const [valueTypes, setvalueTypes] = useState([])
     const [valueTSizes, setvalueSizes] = useState([])
-    
-    // const valueMinDebounce = useDebounce(minInputValue,800)
-    // const valueMaxDebounce = useDebounce(maxInputValue,800)
-
-    useEffect(() => {
-        dispatch(getType())
-    },[dispatch])
-
-    useEffect(() => {
-        dispatch(getSize())
-    },[dispatch])
-
-    useEffect(() => {
-        dispatch(getRangePrice())
-    },[dispatch])
 
     const handleMinInput = (e) => {
         let minValue = e.target.value
@@ -62,9 +49,9 @@ function Products() {
                 return [...prev,type]
             }
         })
-    }
-
-    const handleCheckSize = (size) => {
+    } 
+    
+    const handleCheckSize = async(size) => {
         setvalueSizes(prev => {
             const isChecked = valueTSizes.includes(size)
             if(isChecked) {
@@ -74,26 +61,33 @@ function Products() {
             }
         })
     }
+    
+    useEffect(() => {
+        const fetchData = async () => {
+          try {
+            await dispatch(getMenuProduct({
+              brand: urlProduct,
+              type: valueTypes,
+              minPrice: minInputValue,
+              maxPrice: maxInputValue,
+            }));
+          } catch (error) {
+            console.error('Error fetching data:', error);
+          }
+        }
+
+        fetchData()
+    }, [urlProduct, valueTypes, minInputValue, maxInputValue])
 
     return (
         <div className={cx('wrapper')}>
             <div className={cx('map')}>
                 <Link to={config.routes.home}>HOME PAGE</Link>
                 <i className='bx bxs-chevron-right' ></i>
-                <Link>CONVERSE</Link>
+                <Link>{urlProduct}</Link>
             </div>
             <div className={(cx('inner'))}>
                 <div className={cx('sidebar')}>
-                    <div className={cx('brand', 'box')}>
-                        <h3 className={cx('title')}>Danh mục sản phẩm</h3>
-                        <div className={cx('inner-box')}>
-                            {brandResult.initState && brandResult.initState.map((item,id) => {
-                                return (
-                                    <Link key={id} className={cx('brand-name')}>{item.name}</Link>
-                                )
-                            })}
-                        </div>
-                    </div>
                     <div className={cx('price-range', 'box')}>
                         <h3 className={cx('title')}>Mức giá</h3>
                         <div className={cx('inner-box')}>
@@ -162,7 +156,7 @@ function Products() {
                         </div>
                     </div>
                 </div>
-                <MenuProducts/>
+                <MenuProducts listProducts ={menuProductResult}/>
             </div>
         </div>
     )

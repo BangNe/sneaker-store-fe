@@ -6,9 +6,10 @@ import Button from '../Button'
 
 const cx = classNames.bind(style)
 
-function Pagination({lenghtPage}) {
+function Pagination({lengthListProduct}) {
 
     let arrIdPage = []
+    const lenghtPage = Math.ceil(lengthListProduct/12)
 
     const [idCurentPage,setIdCurrentPage] = useState(1)
 

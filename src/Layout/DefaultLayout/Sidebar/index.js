@@ -1,9 +1,10 @@
 import classNames from 'classnames/bind'
-import {NavLink,Link} from 'react-router-dom'
+import {NavLink,Link, useNavigate} from 'react-router-dom'
 import Tippy from '@tippyjs/react/headless'
 import { useEffect, useState } from 'react'
 import { useDispatch , useSelector } from 'react-redux'
 
+import { getRangePrice,getSize,getType,getMenuProduct, urlProduct } from '../../../store/slice/productSlice'
 import {fetchBrand} from '../../../store/slice/brandSlice'
 import {brandSelector} from '../../../store/selectors'
 import style from './Sidebar.module.scss'
@@ -14,11 +15,22 @@ const cx = classNames.bind(style)
 
 function Sidebar() {
     const dispatch = useDispatch()
+    const navigate = useNavigate()
 
     const [showMenuTypes,setShowMenuTypes]= useState(false)
 
     const handleShowMenuTypes = () => {
         setShowMenuTypes(false)
+    }
+
+    const handleSubmit = async (e, valueSearch, url) => {
+        e.preventDefault()
+        dispatch(urlProduct(url))
+        await dispatch(getMenuProduct(valueSearch))
+        await dispatch(getSize(valueSearch))
+        await dispatch(getType(valueSearch))
+        await dispatch(getRangePrice(valueSearch))
+        navigate(`/products/${encodeURIComponent(url)}`)
     }
 
     useEffect(()=> {
@@ -50,7 +62,11 @@ function Sidebar() {
                                                 const isStyle = brand.style.length > 0
                                                 return (
                                                     <div key={id} className={cx('item-menu')}>
-                                                        <Link className={cx('item-menu-link')} to={`/products/${encodeURIComponent(brand.name)}`}>
+                                                        <Link 
+                                                            className={cx('item-menu-link')} 
+                                                            // to={`/products/${encodeURIComponent(brand.name)}`}
+                                                            onClick={(e) => handleSubmit(e, {brand: brand.name},brand.name)}
+                                                        >
                                                             <span>
                                                                 {brand.name}
                                                             </span>
@@ -62,7 +78,7 @@ function Sidebar() {
                                                                     return(
                                                                         <Link 
                                                                             key={idChild} className={cx('item-menu-link')} 
-                                                                            to={`/products/${encodeURIComponent(itemChild)}`}
+                                                                            onClick={(e) => handleSubmit(e, {brand : brand.name, style : itemChild}, itemChild)}
                                                                         >
                                                                             <span>
                                                                                 {itemChild}

@@ -1,7 +1,10 @@
 import { useEffect, useRef, useState } from 'react'
 import classNames from 'classnames/bind'
 import Tippy from '@tippyjs/react/headless'
+import {  useNavigate } from 'react-router-dom'
+import { useDispatch } from 'react-redux'
 
+import {getProductDetail} from '../../../../store/slice/productSlice'
 import {useDebounce} from '../../../../hooks'
 import style from './Search.module.scss'
 import Wrapper from '../../../../components/Menu/Wrapper'
@@ -11,6 +14,9 @@ import * as productSevices from '../../../../services/productSevices'
 const cx = classNames.bind(style)
 
 function Search() {
+
+    const dispatch = useDispatch()
+    const navigate = useNavigate()
 
     const [searchValue,setSearchValue] = useState('')
     const [searchResult,setSearchResult] = useState([])
@@ -50,6 +56,15 @@ function Search() {
         inputRef.current.focus()
     }
 
+    const handleClickProductSearch = async (e, name) => {
+        setSearchResult(false)
+        setSearchResult([])
+        setSearchValue('')
+        e.preventDefault()
+        await dispatch(getProductDetail(name))
+        navigate(`/productDetails/${encodeURIComponent(name)}`)
+    }
+
     return (
         <div>
             <Tippy
@@ -65,7 +80,11 @@ function Search() {
                                 <div className={cx('list')}>
                                     {searchResult.map((item,id) => {
                                         return (
-                                            <div key={id} className={cx('item')}>
+                                            <div 
+                                                key={id} 
+                                                className={cx('item')}
+                                                onClick={(e) => {handleClickProductSearch(e, item.name)}}
+                                            >
                                                 <div className={cx('item-img')}>
                                                     <img src={item.img[0]} alt=' '/>
                                                 </div>

@@ -1,24 +1,45 @@
 import { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import classNames from 'classnames/bind'
+import { useDispatch } from 'react-redux'
 import Slider from 'react-slick'
 import 'slick-carousel/slick/slick.css'
 import 'slick-carousel/slick/slick-theme.css'
 
+import {getProductDetail, nameProductDetail} from '../../store/slice//productSlice'
 import style from './Product.module.scss'
 import Button from '../Button'
 
 const cx = classNames.bind(style)
 
 function Product({name,price,imgs}) {
+    const dispatch = useDispatch()
+    const navigate = useNavigate()
+
     const [idImgActive, setIdImgActive] = useState(0)
 
+    const handleSubmit = async (e, name) => {
+        e.preventDefault()
+        dispatch(nameProductDetail(name))
+        await dispatch(getProductDetail(name))
+        navigate(`/productDetails/${encodeURIComponent(name)}`)
+    }
+
     return (
-        <Link className={cx('wrapper')}>
+        <Link 
+            className={cx('wrapper')}
+            onClick={(e) => {handleSubmit(e, name)}}
+        >
             <div className={cx('content')}>
                 <div className={cx('img')}>
                     <img src={imgs[idImgActive]} alt=''/>
-                    <div className={cx('wrapper-img-select')}>
+                    <div 
+                        onClick={(e) => {
+                            e.stopPropagation()
+                            e.preventDefault()
+                        }}
+                        className={cx('wrapper-img-select')
+                    }>
                     <Slider
                         speed= {500}
                         slidesToShow = {5}
@@ -32,7 +53,9 @@ function Product({name,price,imgs}) {
                                     <div 
                                         key={id}
                                         className = {cx('img-select')}
-                                        onClick={() => setIdImgActive(id)}
+                                        onClick={() => {
+                                            setIdImgActive(id)
+                                        }}
                                     >
                                         <img src={item} alt=''/>
                                     </div>

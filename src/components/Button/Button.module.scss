@@ -82,3 +82,8 @@
 .active {
     border: 1px solid var(--primary);  
 }
+
+.disabled {
+    opacity: 0.5;
+    cursor: no-drop;
+}

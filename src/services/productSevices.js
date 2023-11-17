@@ -23,11 +23,37 @@ export const searchProduct = async (q, type = 'less') => {
     }
 }
 
-export const getType = async (brand = 'converse') => {
+export const getProductdetails = async (data) => {
+    try {
+        const res = await httpRequest.get('products/get-product-details', {
+            params: {
+                data
+            }
+        })
+        return res.data
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+export const getMenuProduct = async (data) => {
+    try {
+        const res = await httpRequest.get('products/menu-product', {
+            params: {
+                data
+            }
+        })
+        return res.data
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+export const getType = async (data) => {
     try {
         const res = await httpRequest.get('products/get-type', {
             params: {
-                brand
+                data
             }
         })
         return res.data
@@ -36,11 +62,11 @@ export const getType = async (brand = 'converse') => {
     }
 }
 
-export const getSize = async (brand = 'converse') => {
+export const getSize = async (data) => {
     try {
         const res = await httpRequest.get('products/get-size', {
             params: {
-                brand
+                data
             }
         })
         return res.data
@@ -49,11 +75,11 @@ export const getSize = async (brand = 'converse') => {
     }
 }
 
-export const getRangePrice = async (brand = 'converse') => {
+export const getRangePrice = async (data) => {
     try {
         const res = await httpRequest.get('products/get-price', {
             params: {
-                brand
+                data
             }
         })
         return res.data
