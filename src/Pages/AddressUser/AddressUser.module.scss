@@ -1,0 +1,134 @@
+.wrapper {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+}
+
+.title {
+    font-size: 2.8rem;
+    font-weight: 500;
+    line-height: 1.5;
+    padding-bottom: 30px;
+    margin: 0;
+}
+
+.add {
+    display: flex;
+    flex-direction: row-reverse;
+    padding-right: 40px;
+    cursor: pointer;
+    
+
+    i {
+        font-size: 3rem;
+        color: var(--primary);
+
+        &:hover {
+            opacity: 0.7;
+        }
+    }
+}
+
+.list {
+    display: flex;
+    flex-wrap: wrap;
+    padding: 20px;
+    margin-right: 20px;
+    border: 2px dashed var(--primary);
+    border-radius: 4px;
+}
+
+.item {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    width: 45%;
+    padding: 10px;  
+    margin: 10px 10px;
+    border: 2px dashed rgba($color: #000, $alpha: .3);
+    border-radius: 4px;
+
+    &--name {
+        font-size: 1.8rem;
+        font-weight: 500;
+        line-height: 1.5;
+        padding-bottom: 5px;
+        margin: 0;
+    }
+
+    &--num {
+        font-size: 1.4rem;
+        font-weight: 500;
+        line-height: 1.5;
+        padding-bottom: 5px;
+        margin: 0;
+    }
+
+    &--address {
+        font-size: 1.6rem;
+        font-weight: 500;
+        line-height: 1.5;
+        padding-bottom: 5px;
+    }
+
+    &--button {
+        display: flex;
+        flex-direction: row-reverse;
+        width: 100%;
+    }
+
+    .icon {
+        position: absolute;
+        top: 5px;
+        right: 5px;
+
+        i {
+            font-size: 2rem;
+            padding-right: 5px;
+            color: var(--text);
+
+            &:hover {
+                cursor: pointer;
+                color: var(--primary);
+            }
+        }
+    }
+
+    &.active {
+        background-color: rgba($color: #d0021b, $alpha: .1);
+        border-color: var(--primary);
+    }
+}
+
+.form {
+    display: none;
+    position: absolute;
+    inset: 70px 0 0 0;
+    padding: 60px;
+    margin-right: 20px;
+    background-color: var(--white);
+    border-radius: 4px;
+    border: 2px dashed var(--primary);
+}
+
+.form--button {
+    display: flex;
+    flex-direction: row-reverse;
+    padding-top: 20px;
+}
+
+.icon--close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+
+    i {
+        font-size: 2.4rem;
+        color: var(--primary);
+
+        &:hover {
+            cursor: pointer;
+            opacity: 0.7;
+        }
+    }
+}

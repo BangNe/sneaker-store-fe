@@ -17,6 +17,7 @@ function Button({
     primary,
     other,
     white,
+    blue,
     
     clipPathLeft,
     clipPathRight,
@@ -61,6 +62,7 @@ function Button({
         primary,
         other,
         white,
+        blue,
         clipPathLeft,
         clipPathRight,
 

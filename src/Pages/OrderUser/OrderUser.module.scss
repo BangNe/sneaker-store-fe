@@ -1,0 +1,166 @@
+.wrapper {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+}
+
+.title {
+    font-size: 2.8rem;
+    font-weight: 500;
+    line-height: 1.5;
+    padding-bottom: 30px;
+    margin: 0;
+}
+
+.list {
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+}
+
+.item {
+    display: flex;
+    flex-direction: column;
+    background: var(--white);
+    padding: 15px;
+    margin-bottom: 20px;
+    border-radius: 4px;
+
+}
+
+.item--info {
+    display: flex;
+    justify-content: space-between;
+    padding-bottom: 15px;
+
+    div {
+        font-size: 1.6rem;
+        line-height: 1.5;
+    }
+
+    &--name {
+        font-weight: 600;
+        width: 150px;
+    }
+
+    &--num {
+        font-weight: 500;
+        width: 100px;
+    }
+
+    &--address {
+        font-weight: 500;
+        width: 200px;
+    }
+
+    &--status {
+        font-size: 500;
+        width: 100px;
+    }
+
+    &--price {
+        font-weight: 600;
+        width: 110px;
+        color: var(--primary);
+    }
+}
+
+.item--button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-top: 15px;
+    border-top: 2px dashed var(--primary);
+
+    span {
+        font-size: 1.8rem;
+        font-weight: 600;
+        color: var(--primary);
+
+
+    }
+
+    &:hover{
+        cursor: pointer;
+        opacity: 0.8;
+    }
+}
+
+.item--products {
+    display: none;
+    flex-direction: column;
+
+    &.active {
+        display: flex;
+    }
+}
+
+.item--product {
+    display: flex;
+    padding-bottom: 20px;
+    justify-content: space-between;
+}
+
+.product--product--info {
+    display: flex;
+    width: 100%;
+}
+
+.product--img {
+    position: relative;
+    width: 64px;
+
+    img {
+        width: 64px;
+        border-radius: 4px;
+    }
+
+    span {
+        position: absolute;
+        top: 0%;
+        right: 0%;
+
+        font-size: 1rem;
+        font-weight: 500;
+        color: var(--white);
+        padding: 5px;
+        background-color: var(--primary);
+        border-bottom-left-radius: 4px;
+    }
+}
+
+.product--info {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    h5 {
+        font-size: 1.4rem;
+        font-weight: 500;
+        width: 90%;
+        line-height: 1.5;
+        padding-left: 20px;
+        margin: 0;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+    
+
+    span {
+        font-size: 1.2rem;
+        font-weight: 500;
+        line-height: 1.5;
+        padding-left: 20px;
+        margin: 0;
+    }
+}
+
+.product--price {
+    display: flex;
+    align-items: center;
+
+    span {
+        font-size: 1.4rem;
+        font-weight: 600;
+    }
+}
